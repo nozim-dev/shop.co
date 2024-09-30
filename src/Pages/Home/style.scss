@@ -1,0 +1,254 @@
+@import "../../styles/reset";
+@import "../../styles/font";
+$Integral: "Integral CF Bold";
+$SatoshiLight: 'Satoshi-Light';
+$SatoshiRegular: 'Satoshi-Regular';
+$SatoshiMedium: 'Satoshi-Medium';
+$SatoshiBold: 'Satoshi-Bold';
+
+@mixin DefaultScreen() {
+    width: 100%;
+    max-width: 1240px;
+    margin: auto;
+}
+
+.discount {
+    background-color: #000;
+    display: flex;
+    padding: 10px 10px;
+
+    p {
+        width: 90%;
+        text-align: center;
+        color: #fff;
+        font-family: $SatoshiLight;
+        font-size: 14px;
+
+        a {
+            color: #fff;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+    }
+
+    button {
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+}
+
+header {
+    @include DefaultScreen();
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 24px;
+
+    .logo {
+        font-family: $Integral;
+        font-size: 32px;
+        color: #000;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(-3px);
+    }
+
+    nav {
+        ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 6.25px;
+                cursor: pointer;
+
+                a {
+                    text-decoration: none;
+                    font-family: $SatoshiRegular;
+                    font-weight: 400;
+                    color: #000;
+                    position: relative;
+
+                    span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    &::before {
+                        content: "";
+                        width: 0;
+                        height: 2px;
+                        background-color: #000;
+                        position: absolute;
+                        left: 0;
+                        top: 100%;
+                        transition: all 0.4s;
+                    }
+
+                    &:hover::before {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    form {
+        width: 100%;
+        max-width: 577px;
+        background-color: #F0F0F0;
+        padding: 14px 18px;
+        border-radius: 62px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        input {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000;
+
+            &::placeholder {
+                color: rgba(0, 0, 0, 0.4);
+                font-size: 16px;
+                font-weight: 400;
+            }
+        }
+
+        button {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    }
+
+    .options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+    }
+}
+
+.Hero_section {
+    background-color: #F2F0F1;
+    margin-top: 24px;
+
+    .Hero_section_child {
+        display: flex;
+        @include DefaultScreen();
+        justify-content: space-between;
+        gap: 15px;
+
+        .Hero_section_title {
+            flex: 1;
+            margin-top: 103px;
+            margin-bottom: 116px;
+
+            h1 {
+                font-family: $Integral;
+                font-size: 64px;
+                color: #000;
+                font-weight: 600;
+                line-height: 64px;
+            }
+
+            p {
+                margin-top: 32px;
+                font-family: $SatoshiRegular;
+                font-size: 16px;
+                line-height: 22px;
+                color: rgba(0, 0, 0, 0.6);
+            }
+
+            button {
+                margin-top: 32px;
+                background-color: #000;
+                border: none;
+                outline: none;
+                padding: 15px;
+                width: 100%;
+                border-radius: 62px;
+                max-width: 210px;
+                font-family: $SatoshiMedium;
+                font-size: 16px;
+                color: #fff;
+                border: 2px solid #000;
+                cursor: pointer;
+                transition: all .4s;
+
+                &:hover {
+                    background-color: #fff;
+                    color: #000;
+                }
+            }
+
+            .Hero_section_title_score {
+                margin-top: 48px;
+                display: flex;
+                justify-content: space-between;
+                gap: 65px;
+
+                .Hero_section_title_score_item {
+                    position: relative;
+
+                    h2 {
+                        font-family: $SatoshiBold;
+                        font-size: 40px;
+                        color: #000;
+                    }
+
+                    p {
+                        font-family: $SatoshiRegular;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: rgba(0, 0, 0, 0.6);
+                        margin-top: 0;
+                    }
+
+                    &::before {
+                        content: "";
+                        width: 1px;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.1);
+                        position: absolute;
+                        right: -47px;
+                        top: 0;
+                    }
+                }
+            }
+        }
+
+        .Hero_section_img {
+            flex: 1;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+}
