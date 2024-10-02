@@ -12,6 +12,13 @@ $SatoshiBold: 'Satoshi-Bold';
     margin: auto;
 }
 
+@mixin Title() {
+    font-family: $Integral;
+    font-size: 48px;
+    color: #000;
+    text-transform: uppercase;
+}
+
 .discount {
     background-color: #000;
     display: flex;
@@ -251,4 +258,364 @@ header {
         }
     }
 
+}
+
+.partner_section {
+    background-color: #000;
+
+    .partner_section_child {
+        @include DefaultScreen();
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 42px 0;
+        gap: 6px;
+    }
+}
+
+.CartItems {
+    @include DefaultScreen();
+    margin-top: 72px;
+
+    h1 {
+        @include Title();
+        text-align: center;
+    }
+
+    .CartItems_row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-top: 55px;
+
+        .CartItems_row_col {
+            width: 100%;
+            max-width: 295px;
+
+            .CartItems_row_col_img {
+                width: 100%;
+                height: 298px;
+                border-radius: 20px;
+
+                img {
+                    border-radius: 20px;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            h3 {
+                margin-top: 16px;
+                font-family: $SatoshiBold;
+                font-size: 20px;
+                color: #000;
+            }
+
+            .CartItems_row_col_rates {
+                margin-top: 8px;
+                display: flex;
+                gap: 13px;
+                align-items: center;
+
+                .CartItems_row_col_rates_stars {
+                    display: flex;
+                    align-items: center;
+                    gap: 5.31px;
+                    justify-content: space-between;
+
+                    .CartItems_row_col_rates_stars_item {
+                        cursor: pointer;
+                    }
+                }
+
+                .CartItems_row_col_rates_count {
+                    font-family: $SatoshiRegular;
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #000;
+
+                    span {
+                        color: rgba(0, 0, 0, 0.6);
+                    }
+                }
+            }
+
+            h2 {
+                margin-top: 8px;
+                font-family: $SatoshiBold;
+                font-size: 24px;
+                color: #000;
+            }
+        }
+    }
+
+    button {
+        border: none;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $SatoshiMedium;
+        font-size: 16px;
+        color: #000;
+        width: 100%;
+        max-width: 218px;
+        margin: auto;
+        margin-top: 36px;
+        padding: 15px 0;
+        border-radius: 62px;
+        background-color: transparent;
+        cursor: pointer;
+        transition: all .4s;
+
+        &:hover {
+            background-color: #000;
+            color: #fff;
+        }
+    }
+}
+
+.hr {
+    @include DefaultScreen();
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 1px;
+    margin: 64px auto;
+}
+.dressStyle_section {
+    @include DefaultScreen();
+    padding: 70px 64px 76px;
+    background-color: #F0F0F0;
+    margin-top: 80px;
+    border-radius: 40px;
+
+    h1 {
+        @include Title();
+        text-align: center;
+    }
+
+    .dressStyle_section_row {
+        margin-top: 64px;
+        display: grid;
+        gap: 20px;
+        grid-template-areas:
+            "card1 card2 card2"
+            "card3 card3 card4";
+
+        .dressStyle_section_row_col {
+            height: 289px;
+            position: relative;
+            border-radius: 20px;
+            background-color: #fff;
+
+            h2 {
+                position: absolute;
+                left: 36px;
+                top: 25px;
+                font-family: $SatoshiBold;
+                font-size: 36px;
+                color: #000;
+            }
+
+            .dressStyle_section_row_col_img {
+                width: 100%;
+                height: 100%;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: 0 0;
+                    border-radius: 20px;
+                }
+            }
+
+            &:nth-of-type(1) {
+                grid-area: card1;
+            }
+
+            &:nth-of-type(2) {
+                grid-area: card2;
+            }
+
+            &:nth-of-type(3) {
+                grid-area: card3;
+            }
+
+            &:nth-of-type(4) {
+                grid-area: card4;
+            }
+
+        }
+    }
+}
+
+.testimonals_section {
+    @include DefaultScreen();
+    margin-top: 80px;
+    margin-bottom: 80px;
+
+    .testimonals_section_title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+
+        h1 {
+            @include Title();
+        }
+
+        .testimonals_section_title_buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: space-between;
+
+            button {
+                border: none;
+                outline: none;
+                display: block;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: transparent;
+                cursor: pointer;
+                padding: 4.12px 2.62px;
+                transition: all .4s;
+                border: 1px solid transparent;
+                border-radius: 4px;
+
+
+                &:hover {
+                    border: 1px solid #000;
+                }
+            }
+        }
+    }
+
+    .testimonals_section_row {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 40px;
+
+        .testimonals_section_row_col {
+            width: 100%;
+            max-width: 400px;
+            height: 240px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 28px 32px;
+            border-radius: 20px;
+
+            .testimonals_section_row_col_stars {
+                display: flex;
+                align-items: center;
+                gap: 6.49px;
+            }
+
+            h3 {
+                margin-top: 19.5px;
+                font-family: $SatoshiBold;
+                font-size: 20px;
+                line-height: 22px;
+                color: #000;
+                display: flex;
+                gap: 6.25px;
+
+                span {
+                    width: 19.5px;
+                    height: 19.5px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            p {
+                font-family: $SatoshiRegular;
+                font-size: 16px;
+                line-height: 22px;
+                color: rgba(0, 0, 0, 0.6);
+                margin-top: 12px;
+            }
+        }
+    }
+}
+
+.subscribe_section {
+    @include DefaultScreen();
+    background-color: #000;
+    margin-top: 80.42px;
+    padding: 36px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-radius: 20px;
+
+    h1 {
+        font-family: $Integral;
+        font-size: 40px;
+        color: #fff;
+        line-height: 45px;
+    }
+
+    form {
+        width: 100%;
+        max-width: 350px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        label {
+            width: 100%;
+            display: flex;
+            background-color: #fff;
+            gap: 12px;
+            padding: 12px;
+            align-items: center;
+            border-radius: 62px;
+
+            span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            input {
+                border: none;
+                outline: none;
+                font-family: $SatoshiRegular;
+                font-size: 16px;
+                color: rgba(0, 0, 0, 0.4);
+                width: 100%;
+                background-color: transparent;
+                padding: 0;
+            }
+        }
+
+        input {
+            &[type="submit"] {
+                border: none;
+                outline: none;
+                font-family: $SatoshiRegular;
+                font-size: 16px;
+                color: rgba(0, 0, 0, 0.4);
+                width: 100%;
+                background-color: #fff;
+                padding: 12px;
+                border-radius: 62px;
+                font-family: $SatoshiMedium;
+                font-size: 16px;
+                color: #000;
+                cursor: pointer;
+            }
+        }
+    }
 }
