@@ -4,7 +4,8 @@
   "info": {
     "singularName": "shop",
     "pluralName": "shops",
-    "displayName": "shop"
+    "displayName": "shop",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,14 +18,14 @@
       "unique": true
     },
     "imgUrl": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "private": true,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "private": true
+      ]
     },
     "cost": {
       "type": "integer",

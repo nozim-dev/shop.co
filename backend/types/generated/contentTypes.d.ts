@@ -6,6 +6,7 @@ export interface ApiShopShop extends Struct.CollectionTypeSchema {
     singularName: 'shop';
     pluralName: 'shops';
     displayName: 'shop';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -14,7 +15,7 @@ export interface ApiShopShop extends Struct.CollectionTypeSchema {
     productName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    imgUrl: Schema.Attribute.Media<'images' | 'files'> &
+    imgUrl: Schema.Attribute.Media<'images' | 'files', true> &
       Schema.Attribute.Required &
       Schema.Attribute.Private;
     cost: Schema.Attribute.Integer & Schema.Attribute.Required;

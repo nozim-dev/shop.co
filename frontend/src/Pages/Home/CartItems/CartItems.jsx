@@ -1,6 +1,5 @@
 import React from "react";
 const CartItems = ({ title, data }) => {
-  console.log(data);
 
   return (
     <div className="CartItems">
