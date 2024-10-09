@@ -7,6 +7,8 @@ import Category from "./Pages/Category/Category";
 import Cart from "./Pages/Cart/Cart";
 import HomeLayouts from "./Layouts/HomeLayouts.jsx";
 import Shop from "./Pages/Shop/Shop.jsx";
+import ShopItem from "./Pages/Shop/ShopItem.jsx";
+import ShopLayout from "./Layouts/ShopLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/shop",
-        element: <Shop />,
+        element: <ShopLayout />,
+        children: [
+          {
+            index: true,
+            path: "/shop",
+            element: <Shop />,
+          },
+          {
+            path: ":shopId",
+            element: <ShopItem />,
+            loader: ({ params }) => {
+              return params.shopId;
+            },
+          },
+        ],
       },
       {
         path: "/productDetail",

@@ -1,10 +1,10 @@
 import React from "react";
 import "../Home/style.scss";
+import { Link } from "react-router-dom";
 
 const ShopCart = ({ data }) => {
-
   return (
-    <div className="CartItems_row_col">
+    <Link to={`${data.documentId}`} className="CartItems_row_col">
       <div className="CartItems_row_col_img">
         <img alt="product" src={data.imgUrl.url} />
       </div>
@@ -86,8 +86,8 @@ const ShopCart = ({ data }) => {
           {data.rateNumber}/<span>5</span>
         </div>
       </div>
-      <h2>{data.cost}</h2>
-    </div>
+      <h2>${data.cost}</h2>
+    </Link>
   );
 };
 

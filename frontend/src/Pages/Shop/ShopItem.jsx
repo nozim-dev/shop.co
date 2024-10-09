@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ShopCart from "./ShopCart";
+import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
+import { useParams } from "react-router-dom";
 
-const Shop = () => {
-  const [ItemsData, setItemsData] = useState([]);
+const ShopItem = () => {
+  const params = useParams();
   const [isLoad, setIsLoad] = useState(true);
-  const ApiKey =
-    "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*";
+  const [cartData, setCardData] = useState([]);
+
+  const ApiKey = `https://harmonious-gift-7f42955e82.strapiapp.com/api/shops/${params.shopId}?populate=*`;
 
   useEffect(() => {
     setTimeout(() => {
       axios
         .get(ApiKey)
         .then((res) => {
-          setItemsData(res.data.data);
+          setCardData(res.data.data);
         })
         .catch((err) => {
           console.log(err);
@@ -24,7 +25,7 @@ const Shop = () => {
   }, []);
 
   return (
-    <div className="shop_row">
+    <>
       {isLoad ? (
         <div className="loader">
           <RotatingLines
@@ -38,10 +39,13 @@ const Shop = () => {
           />
         </div>
       ) : (
-        ItemsData.map((item) => <ShopCart data={item} key={item.id} />)
+        <div>
+            {cartData.productName}
+        
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
-export default Shop;
+export default ShopItem;

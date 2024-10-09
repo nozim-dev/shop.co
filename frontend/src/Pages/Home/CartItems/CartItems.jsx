@@ -1,16 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const CartItems = ({ title, data }) => {
-
   return (
     <div className="CartItems">
       <h1>{title}</h1>
       <div className="CartItems_row">
         {data.map((cart) => (
-          <div key={cart.id} className="CartItems_row_col">
+          <Link
+            to={`/shop/${cart.documentId}`}
+            key={cart.id}
+            className="CartItems_row_col"
+          >
             <div className="CartItems_row_col_img">
-              <img src={cart.imgUrl} alt="" />
+              <img src={cart.imgUrl.url} alt="" />
             </div>
-            <h3>{cart.itemName}</h3>
+            <h3>{cart.productName}</h3>
             <div className="CartItems_row_col_rates">
               <div className="CartItems_row_col_rates_stars">
                 <div className="CartItems_row_col_rates_stars_item">
@@ -85,14 +89,16 @@ const CartItems = ({ title, data }) => {
                 </div>
               </div>
               <div className="CartItems_row_col_rates_count">
-                {cart.rateCount}/<span>5</span>
+                {cart.rateNumber}/<span>5</span>
               </div>
             </div>
-            <h2>{cart.cost}</h2>
-          </div>
+            <h2>${cart.cost}</h2>
+          </Link>
         ))}
       </div>
-      <button>View All</button>
+      <Link to={"/Shop"} className="CartItems_btn">
+        View All
+      </Link>
     </div>
   );
 };
