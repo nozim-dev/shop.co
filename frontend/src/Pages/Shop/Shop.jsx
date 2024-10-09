@@ -4,7 +4,8 @@ import ShopCart from "./ShopCart";
 
 const Shop = () => {
   const [ItemsData, setItemsData] = useState([]);
-  const ApiKey = "http://localhost:1337/api/shops?populate=*";
+  const ApiKey =
+    "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*";
 
   useEffect(() => {
     axios
@@ -16,8 +17,6 @@ const Shop = () => {
         console.log(err);
       });
   }, []);
-
-  console.log(ItemsData);
 
   return (
     <div className="shop">

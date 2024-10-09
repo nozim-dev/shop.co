@@ -2,7 +2,6 @@ import React from "react";
 import "../Home/style.scss";
 
 const ShopCart = ({ data }) => {
-  console.log(data.imgUrl.url);
 
   return (
     <div className="CartItems_row_col">
