@@ -15,9 +15,8 @@ export interface ApiShopShop extends Struct.CollectionTypeSchema {
     productName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    imgUrl: Schema.Attribute.Media<'images' | 'files', true> &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private;
+    imgUrl: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
     cost: Schema.Attribute.Integer & Schema.Attribute.Required;
     rateNumber: Schema.Attribute.Decimal & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CartItems from "../Home/CartItems/CartItems";
 import ShopCart from "./ShopCart";
 
 const Shop = () => {
   const [ItemsData, setItemsData] = useState([]);
-  const ApiKey = "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops";
+  const ApiKey = "http://localhost:1337/api/shops?populate=*";
 
   useEffect(() => {
     axios

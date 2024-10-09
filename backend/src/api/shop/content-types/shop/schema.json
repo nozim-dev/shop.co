@@ -19,9 +19,8 @@
     },
     "imgUrl": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "required": true,
-      "private": true,
       "allowedTypes": [
         "images",
         "files"
