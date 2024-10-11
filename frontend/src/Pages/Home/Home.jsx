@@ -14,16 +14,16 @@ import { RotatingLines } from "react-loader-spinner";
 const Home = () => {
   const [NewArrivalsData, setNewArrivalsData] = useState([]);
   const [TopSellingData, setTopSellingData] = useState([]);
+  const [TestimonalsData, setTestimonalsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const API =
-    "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*";
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const resData = await axios.get(API);
+        const resData = await axios.get(
+          "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*"
+        );
         setNewArrivalsData(
           resData.data.data.filter((item) => {
             if (item.id % 2 == 1 && item.id < 19) {
@@ -43,7 +43,9 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resData = await axios.get(API);
+        const resData = await axios.get(
+          "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*"
+        );
         setTopSellingData(
           resData.data.data.filter((item) => {
             if (item.id % 2 == 1 && item.id > 19) {
@@ -51,6 +53,24 @@ const Home = () => {
             }
           })
         );
+      } catch {
+        setError(error);
+        setLoading(false);
+      }
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const resData = await axios.get(
+          "https://harmonious-gift-7f42955e82.strapiapp.com/api/reviews?populate=*"
+        );
+        console.log(resData);
+
+        // setTestimonalsData(resData.data.data);
       } catch {
         setError(error);
         setLoading(false);
@@ -79,27 +99,6 @@ const Home = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  const TestimonalsData = [
-    {
-      id: 0,
-      customerName: "Sarah M.",
-      description:
-        "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
-    },
-    {
-      id: 1,
-      customerName: "Alex K.",
-      description:
-        "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
-    },
-    {
-      id: 2,
-      customerName: "James L.",
-      description:
-        "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.",
-    },
-  ];
 
   return (
     <>
@@ -283,7 +282,7 @@ const Home = () => {
           </div>
         </div>
         <div className="testimonals_section_row">
-          <TestimonalsCart data={TestimonalsData} />
+          {/* <TestimonalsCart data={TestimonalsData} /> */}
         </div>
       </section>
       <section className="subscribe_section">

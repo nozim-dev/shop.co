@@ -76,7 +76,7 @@ const TestimonalsCart = ({ data }) => {
         </div>
       </div>
       <h3>
-        {item.customerName}
+        {item.firstName}
         <span>
           <svg
             width="20"
