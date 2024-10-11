@@ -9,39 +9,76 @@ import style4 from "./images/style4.png";
 import TestimonalsCart from "./TestimonalsCart/TestimonalsCart";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
 
 const Home = () => {
   const [NewArrivalsData, setNewArrivalsData] = useState([]);
   const [TopSellingData, setTopSellingData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const API =
     "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*";
 
   useEffect(() => {
-    axios.get(API).then((res) => {
-      const data = res.data.data;
-      setNewArrivalsData(
-        data.filter((item) => {
-          if (item.id % 2 == 1 && item.id < 19) {
-            return item;
-          }
-        })
-      );
-    });
+    async function fetchData() {
+      try {
+        const resData = await axios.get(API);
+        setNewArrivalsData(
+          resData.data.data.filter((item) => {
+            if (item.id % 2 == 1 && item.id < 19) {
+              return item;
+            }
+          })
+        );
+      } catch {
+        setError(error);
+        setLoading(false);
+      }
+      setLoading(false);
+    }
+    fetchData();
   }, []);
 
   useEffect(() => {
-    axios.get(API).then((res) => {
-      const data = res.data.data;
-      setTopSellingData(
-        data.filter((item) => {
-          if (item.id % 2 == 1 && item.id > 19) {
-            return item;
-          }
-        })
-      );
-    });
+    async function fetchData() {
+      try {
+        const resData = await axios.get(API);
+        setTopSellingData(
+          resData.data.data.filter((item) => {
+            if (item.id % 2 == 1 && item.id > 19) {
+              return item;
+            }
+          })
+        );
+      } catch {
+        setError(error);
+        setLoading(false);
+      }
+      setLoading(false);
+    }
+    fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loader">
+        <RotatingLines
+          visible={true}
+          height="32"
+          width="32"
+          strokeWidth="5"
+          strokeColor="gray"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   const TestimonalsData = [
     {

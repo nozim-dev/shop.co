@@ -4,42 +4,51 @@ import ShopCart from "./ShopCart";
 import { RotatingLines } from "react-loader-spinner";
 
 const Shop = () => {
-  const [ItemsData, setItemsData] = useState([]);
-  const [isLoad, setIsLoad] = useState(true);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const ApiKey =
     "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*";
 
   useEffect(() => {
-    setTimeout(() => {
-      axios
-        .get(ApiKey)
-        .then((res) => {
-          setItemsData(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      setIsLoad(false);
-    }, 1000);
+    async function fetchData() {
+      try {
+        const resData = await axios.get(ApiKey);
+        setData(resData.data.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    }
+    fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loader">
+        <RotatingLines
+          visible={true}
+          height="32"
+          width="32"
+          strokeWidth="5"
+          strokeColor="gray"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="shop_row">
-      {isLoad ? (
-        <div className="loader">
-          <RotatingLines
-            visible={true}
-            height="32"
-            width="32"
-            strokeWidth="5"
-            strokeColor="gray"
-            animationDuration="0.75"
-            ariaLabel="rotating-lines-loading"
-          />
-        </div>
-      ) : (
-        ItemsData.map((item) => <ShopCart data={item} key={item.id} />)
-      )}
+      {data.map((item) => (
+        <ShopCart data={item} key={item.id} />
+      ))}
     </div>
   );
 };

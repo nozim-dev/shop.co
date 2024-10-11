@@ -14,9 +14,7 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
   attributes: {
     firstName: Schema.Attribute.Text & Schema.Attribute.Required;
     description: Schema.Attribute.Blocks & Schema.Attribute.Required;
-    date: Schema.Attribute.Date &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'2024-10-09'>;
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
