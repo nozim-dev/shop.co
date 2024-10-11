@@ -46,6 +46,8 @@ export interface ApiShopShop extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required;
     cost: Schema.Attribute.Integer & Schema.Attribute.Required;
     rateNumber: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    oldPrice: Schema.Attribute.Integer;
+    discount: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

@@ -34,6 +34,14 @@
     "rateNumber": {
       "type": "decimal",
       "required": true
+    },
+    "oldPrice": {
+      "type": "integer",
+      "required": false
+    },
+    "discount": {
+      "type": "integer",
+      "required": false
     }
   }
 }

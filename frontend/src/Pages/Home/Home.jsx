@@ -68,9 +68,13 @@ const Home = () => {
         const resData = await axios.get(
           "https://harmonious-gift-7f42955e82.strapiapp.com/api/reviews?populate=*"
         );
-        console.log(resData);
-
-        // setTestimonalsData(resData.data.data);
+        setTestimonalsData(
+          resData.data.data.filter((item) => {
+            if (item.id < 7) {
+              return item;
+            }
+          })
+        );
       } catch {
         setError(error);
         setLoading(false);
@@ -282,7 +286,7 @@ const Home = () => {
           </div>
         </div>
         <div className="testimonals_section_row">
-          {/* <TestimonalsCart data={TestimonalsData} /> */}
+          <TestimonalsCart data={TestimonalsData} />
         </div>
       </section>
       <section className="subscribe_section">
