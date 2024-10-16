@@ -84,7 +84,7 @@ const Header = () => {
           />
         </form>
         <div className="options">
-          <Link to="">
+          <Link to="/cart">
             <svg
               width="23"
               height="22"
