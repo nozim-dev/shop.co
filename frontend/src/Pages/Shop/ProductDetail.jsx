@@ -13,6 +13,7 @@ const ProductDetail = () => {
   const [reviewData, setReviewData] = useState([]);
   const [sameCartData, setSameCartData] = useState([]);
   const [count, setCount] = useState(1);
+  const [store, setStore] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -87,6 +88,66 @@ const ProductDetail = () => {
     return <div>Error: Unable to load data</div>;
   }
 
+  // async function AddCart() {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://harmonious-gift-7f42955e82.strapiapp.com/api/carts",
+  //       {
+  //         data: {
+  //           // Wrap the payload inside "data"
+
+  //           productName: cartData.productName,
+  //           productUrl: cartData?.imgUrl?.url,
+  //           costProduct: cartData.cost,
+  //           quantity: count,
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data); // Log the response data
+  //   } catch (error) {
+  //     if (error.response) {
+  //       console.log("Error response data:", error.response.data); // Logs error details
+  //     } else {
+  //       console.log("Error:", error.message);
+  //     }
+  //   }
+  // }
+  async function AddCart() {
+    try {
+      // Log cartData to check if all values are correct
+      console.log(cartData);
+
+      const response = await fetch(
+        `https://harmonious-gift-7f42955e82.strapiapp.com/api/carts`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            data: {
+              product: cartData.productId,
+              productName: cartData.productName,
+              productUrl: cartData?.imgUrl?.url,
+              costProduct: cartData.cost,
+              quantity: count,
+            },
+          }),
+        }
+      );
+
+      // Check if response is ok and parse the response body
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error response data:", errorData);
+      } else {
+        const responseData = await response.json();
+        console.log(responseData); // Log successful response
+      }
+    } catch (error) {
+      console.log("Fetch error:", error);
+    }
+  }
   return (
     <>
       {
@@ -99,7 +160,7 @@ const ProductDetail = () => {
               />
             </div>
             <div className="ProductDetail_cartDetail_title">
-              <h1>One Life Graphic T-shirt</h1>
+              <h1>{cartData.productName}</h1>
               <div className="ProductDetail_cartDetail_title_rates">
                 <div className="ProductDetail_cartDetail_title_stars">
                   <span>
@@ -232,7 +293,7 @@ const ProductDetail = () => {
                   <p>{count}</p>
                   <button onClick={() => setCount(count + 1)}>+</button>
                 </div>
-                <button>Add to Cart</button>
+                <button onClick={AddCart}>Add to Cart</button>
               </div>
             </div>
           </div>

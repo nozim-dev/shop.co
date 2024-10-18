@@ -4,7 +4,8 @@
   "info": {
     "singularName": "cart",
     "pluralName": "carts",
-    "displayName": "cart"
+    "displayName": "cart",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,17 +16,6 @@
       "type": "string",
       "required": true
     },
-    "productUrl": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": false,
-      "required": true
-    },
     "costProduct": {
       "type": "integer",
       "required": true
@@ -34,6 +24,10 @@
       "type": "integer",
       "required": true,
       "min": 1
+    },
+    "productUrl": {
+      "type": "string",
+      "required": true
     }
   }
 }

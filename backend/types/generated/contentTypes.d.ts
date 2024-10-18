@@ -491,16 +491,13 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     singularName: 'cart';
     pluralName: 'carts';
     displayName: 'cart';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     productName: Schema.Attribute.String & Schema.Attribute.Required;
-    productUrl: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    > &
-      Schema.Attribute.Required;
     costProduct: Schema.Attribute.Integer & Schema.Attribute.Required;
     quantity: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -510,6 +507,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    productUrl: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
