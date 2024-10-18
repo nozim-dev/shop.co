@@ -226,9 +226,11 @@ const ProductDetail = () => {
               </div>
               <div className="ProductDetail_cartDetail_title_addBtn">
                 <div className="ProductDetail_cartDetail_title_addBtn_counter">
-                  <button>-</button>
+                  <button onClick={() => setCount(count <= 1 ? 1 : count - 1)}>
+                    -
+                  </button>
                   <p>{count}</p>
-                  <button>+</button>
+                  <button onClick={() => setCount(count + 1)}>+</button>
                 </div>
                 <button>Add to Cart</button>
               </div>

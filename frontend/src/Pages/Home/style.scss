@@ -25,6 +25,12 @@ $SatoshiBold: 'Satoshi-Bold';
     align-items: center;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .discount {
     background-color: #000;
     padding: 10px 10px;
@@ -1296,6 +1302,307 @@ footer {
             &:hover {
                 background-color: #000;
                 color: #fff;
+            }
+        }
+    }
+}
+
+.Cart {
+    @include DefaultScreen();
+    margin-top: 70px;
+
+    h1 {
+        font-size: 40px;
+        font-family: $Integral;
+        color: #000;
+    }
+
+    .Cart_main {
+        margin-top: 24px;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 20px;
+
+        .Cart_main_row {
+            width: 100%;
+            padding: 20px 24px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            max-width: 715px;
+
+            .Cart_main_row_col {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                gap: 16px;
+
+                .Cart_main_row_col_img {
+                    width: 100%;
+                    max-width: 124px;
+                    min-width: 124px;
+                    height: 124px;
+
+                    img {
+                        width: 100%;
+                        border-radius: 8.66px;
+                    }
+                }
+
+                .Cart_main_row_col_text {
+                    width: 100%;
+
+                    .Cart_main_row_col_text_title {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+
+                        .Cart_main_row_col_text_title_item {
+                            h1 {
+                                font-size: 20px;
+                                font-family: $SatoshiBold;
+                                color: #000;
+                            }
+
+                            h3 {
+                                margin-top: 4px;
+                                font-size: 14px;
+                                font-family: $SatoshiRegular;
+
+                                span {
+                                    color: rgba(0, 0, 0, 0.6);
+                                }
+                            }
+                        }
+
+                        &>span {
+                            width: 32px;
+                            height: 32px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            cursor: pointer;
+                            border-radius: 62px;
+                            transition: all .4s;
+                            padding: 8px;
+
+                            &:hover {
+                                background-color: rgba(0, 0, 0, 0.1);
+                            }
+                        }
+                    }
+
+                    .Cart_main_row_col_text_price {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 15px;
+
+                        h5 {
+                            font-size: 24px;
+                            font-family: $SatoshiBold;
+                            color: #000;
+                        }
+
+                        .Cart_main_row_col_text_price_counter {
+                            width: 100%;
+                            max-width: 126px;
+                            background-color: #F0F0F0;
+                            padding: 12px 20px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            gap: 20px;
+                            border-radius: 62px;
+
+                            button {
+                                width: 24px;
+                                height: 24px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border: none;
+                                cursor: pointer;
+                                border-radius: 62px;
+                                padding: 5px;
+                                transition: all .4s;
+
+                                &:hover {
+                                    background-color: rgba(0, 0, 0, 0.1);
+                                }
+                            }
+
+                            p {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                font-size: 14px;
+                                font-family: $SatoshiMedium;
+                                color: #000;
+                            }
+                        }
+                    }
+                }
+
+                &:not(:last-of-type) {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    padding-bottom: 24px;
+                    margin-bottom: 24px;
+                }
+            }
+        }
+
+        .Cart_main_summary {
+            width: 100%;
+            max-width: 505px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 20px 24px;
+
+            h1 {
+                font-size: 24px;
+                font-family: $SatoshiBold;
+                color: #000;
+            }
+
+            .Cart_main_summary_item {
+                margin-top: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+
+                p {
+                    font-size: 20px;
+                    font-family: $SatoshiRegular;
+                    color: rgba(0, 0, 0, 0.6);
+                }
+
+                b {
+                    color: #000;
+                    font-size: 20px;
+                    font-family: $SatoshiBold;
+                }
+
+                &:first-of-type {
+                    margin-top: 24px;
+                }
+
+                form {
+                    width: 100%;
+                    display: flex;
+                    gap: 12px;
+                    background-color: #F0F0F0;
+                    max-width: 326px;
+                    padding: 12px 16px;
+                    border-radius: 62px;
+
+                    span {
+                        width: 24px;
+                        height: 24px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    input {
+                        border: none;
+                        outline: none;
+                        background-color: transparent;
+                        font-size: 16px;
+                        font-family: $SatoshiBold;
+                        color: #000;
+
+                        &::placeholder {
+                            font-size: 16px;
+                            font-family: $SatoshiBold;
+                            color: rgba(0, 0, 0, 0.4);
+                        }
+                    }
+                }
+
+                button {
+                    width: 100%;
+                    max-width: 119px;
+                    background-color: #000;
+                    padding: 13px 0;
+                    border: none;
+                    outline: none;
+                    border-radius: 62px;
+                    font-size: 16px;
+                    font-family: $SatoshiMedium;
+                    color: #fff;
+                    cursor: pointer;
+                    border: 1px solid #000;
+                    transition: all .4s;
+
+                    &:hover {
+                        background-color: #fff;
+                        color: #000;
+                    }
+
+                }
+            }
+
+            .total {
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                padding-top: 24px;
+                margin-bottom: 24px;
+
+                p {
+                    color: #000;
+                    font-family: $SatoshiRegular;
+                }
+
+                b {
+                    font-size: 24px;
+                }
+            }
+
+            &>button {
+                width: 100%;
+                max-width: 457px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 12px;
+                font-size: 16px;
+                font-family: $SatoshiMedium;
+                color: #fff;
+                background-color: #000;
+                border: 1px solid #000;
+                transition: all .4s;
+                padding: 19px 0;
+                margin-top: 24px;
+                border-radius: 62px;
+                cursor: pointer;
+
+                span {
+                    width: 24px;
+                    height: 24px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    svg {
+                        path {
+                            transition: all .4s;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: #fff;
+                    color: #000;
+
+                    span {
+                        svg {
+                            path {
+                                fill: #000;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
