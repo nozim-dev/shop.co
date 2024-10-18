@@ -2,25 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 
+
 const Cart = () => {
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [count, setCount] = useState(1);
+  const [store, setStore] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const resData = await axios.get(
-          "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*"
+          "https://harmonious-gift-7f42955e82.strapiapp.com/api/carts"
         );
-        setCartData(
-          resData.data.data.filter((item) => {
-            if (item.id % 2 == 1 && item.id < 17) {
-              return item;
-            }
-          })
-        );
+        setCartData(resData.data.data);
       } catch {
         setError(error);
         setLoading(false);
@@ -58,7 +54,7 @@ const Cart = () => {
           {cartData.map((item) => (
             <div className="Cart_main_row_col">
               <div className="Cart_main_row_col_img">
-                <img src={item.imgUrl.url} alt="" />
+                <img src={item.productUrl} alt="" />
               </div>
               <div className="Cart_main_row_col_text">
                 <div className="Cart_main_row_col_text_title">
@@ -87,7 +83,7 @@ const Cart = () => {
                   </span>
                 </div>
                 <div className="Cart_main_row_col_text_price">
-                  <h5>${item.cost}</h5>
+                  <h5>${item.costProduct}</h5>
                   <div className="Cart_main_row_col_text_price_counter">
                     <button
                       onClick={() => setCount(count <= 1 ? 1 : count - 1)}
@@ -105,7 +101,7 @@ const Cart = () => {
                         />
                       </svg>
                     </button>
-                    <p>{count}</p>
+                    <p>{item.quantity}</p>
                     <button onClick={() => setCount(count + 1)}>
                       <svg
                         width="16"

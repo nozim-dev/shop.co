@@ -4,6 +4,8 @@ import { RotatingLines } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import CartItems from "../Home/CartItems/CartItems";
 import ErrorImage from "./images/error-image-photo-icon.webp";
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 
 const ProductDetail = () => {
   const params = useParams();
@@ -13,7 +15,7 @@ const ProductDetail = () => {
   const [reviewData, setReviewData] = useState([]);
   const [sameCartData, setSameCartData] = useState([]);
   const [count, setCount] = useState(1);
-  const [store, setStore] = useState([]);
+  const [alert, setAlert] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -115,7 +117,7 @@ const ProductDetail = () => {
   async function AddCart() {
     try {
       // Log cartData to check if all values are correct
-      console.log(cartData);
+      // console.log(cartData);
 
       const response = await fetch(
         `https://harmonious-gift-7f42955e82.strapiapp.com/api/carts`,
@@ -126,7 +128,6 @@ const ProductDetail = () => {
           },
           body: JSON.stringify({
             data: {
-              product: cartData.productId,
               productName: cartData.productName,
               productUrl: cartData?.imgUrl?.url,
               costProduct: cartData.cost,
@@ -137,19 +138,34 @@ const ProductDetail = () => {
       );
 
       // Check if response is ok and parse the response body
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error response data:", errorData);
-      } else {
-        const responseData = await response.json();
-        console.log(responseData); // Log successful response
-      }
+      // if (!response.ok) {
+      //   const errorData = await response.json();
+      //   console.error("Error response data:", errorData);
+      // } else {
+      //   const responseData = await response.json();
+      //   console.log(responseData); // Log successful response
+      // }
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+        console.log(alert);
+      }, 3000);
     } catch (error) {
       console.log("Fetch error:", error);
     }
   }
+
   return (
     <>
+      {alert ? (
+        <div className="alert">
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            Mahsulot savatchangizga muvaffaqiyatli tarzda qo'shildi!
+          </Alert>
+        </div>
+      ) : (
+        ""
+      )}
       {
         <div className="ProductDetail">
           <div className="ProductDetail_cartDetail">

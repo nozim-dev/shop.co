@@ -1607,3 +1607,31 @@ footer {
         }
     }
 }
+
+.alert {
+    max-width: 450px;
+    margin: auto;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-400%);
+    opacity: 0;
+    animation-name: animate;
+    animation-duration: 0.4s;
+    animation-delay: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    @keyframes animate {
+        from {
+            transform: translateX(-50%) translateY(-400%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    }
+}
