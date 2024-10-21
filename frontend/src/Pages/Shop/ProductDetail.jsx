@@ -8,6 +8,8 @@ import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
 
 const ProductDetail = () => {
+  const API_KEY = process.env.REACT_APP_API_KEY;
+
   const params = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -21,7 +23,7 @@ const ProductDetail = () => {
     async function fetchData() {
       try {
         const resData = await axios.get(
-          `https://harmonious-gift-7f42955e82.strapiapp.com/api/shops/${params.shopId}?populate=*`
+          `${API_KEY}/api/shops/${params.shopId}?populate=*`
         );
         setCardData(resData.data.data);
         setLoading(false);
@@ -36,7 +38,7 @@ const ProductDetail = () => {
     async function fetchData() {
       try {
         const resData = await axios.get(
-          "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*"
+          `${API_KEY}/api/shops?populate=*`
         );
         setSameCartData(
           resData.data.data.filter((item) => {
@@ -58,7 +60,7 @@ const ProductDetail = () => {
     async function fetchData() {
       try {
         const resData = await axios.get(
-          "https://harmonious-gift-7f42955e82.strapiapp.com/api/reviews?populate=*"
+          `${API_KEY}/api/reviews?populate=*`
         );
         setReviewData(resData.data.data);
         setLoading(false);
@@ -120,7 +122,7 @@ const ProductDetail = () => {
       // console.log(cartData);
 
       const response = await fetch(
-        `https://harmonious-gift-7f42955e82.strapiapp.com/api/carts`,
+        `${API_KEY}/api/carts`,
         {
           method: "POST",
           headers: {

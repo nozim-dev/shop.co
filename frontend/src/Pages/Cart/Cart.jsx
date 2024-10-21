@@ -1,9 +1,11 @@
+import { Alert } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { RotatingLines } from "react-loader-spinner";
-
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 
 const Cart = () => {
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,13 +48,40 @@ const Cart = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const DeleteCart = async (id) => {
+    try {
+      const response = await fetch(`${API_KEY}/api/carts/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+        console.log(alert);
+      }, 3000);
+    } catch (error) {
+      console.log("Fetch error:", error);
+    }
+  };
+
   return (
     <div className="Cart">
+      {alert ? (
+        <div className="alert">
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            Mahsulot savatchangizga muvaffaqiyatli tarzda qo'shildi!
+          </Alert>
+        </div>
+      ) : (
+        ""
+      )}
       <h1>Your cart</h1>
       <div className="Cart_main">
         <div className="Cart_main_row">
-          {cartData.map((item) => (
-            <div className="Cart_main_row_col">
+          {cartData.map((item, id) => (
+            <div key={id} className="Cart_main_row_col">
               <div className="Cart_main_row_col_img">
                 <img src={item.productUrl} alt="" />
               </div>
@@ -67,7 +96,7 @@ const Cart = () => {
                       Color: <span>White</span>
                     </h3>
                   </div>
-                  <span>
+                  <span onClick={() => DeleteCart(item.id)}>
                     <svg
                       width="18"
                       height="20"

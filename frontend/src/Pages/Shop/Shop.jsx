@@ -4,11 +4,12 @@ import ShopCart from "./ShopCart";
 import { RotatingLines } from "react-loader-spinner";
 
 const Shop = () => {
+  const API_KEY = process.env.REACT_APP_API_KEY;
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const ApiKey =
-    "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*";
+  const ApiKey = `${API_KEY}/api/shops?populate=*`;
 
   useEffect(() => {
     async function fetchData() {

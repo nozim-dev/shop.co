@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 
 const Home = () => {
+  const API_KEY = process.env.REACT_APP_API_KEY;
+
   const [NewArrivalsData, setNewArrivalsData] = useState([]);
   const [TopSellingData, setTopSellingData] = useState([]);
   const [TestimonalsData, setTestimonalsData] = useState([]);
@@ -21,9 +23,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resData = await axios.get(
-          "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*"
-        );
+        const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setNewArrivalsData(
           resData.data.data.filter((item) => {
             if (item.id % 2 == 1 && item.id < 19) {
@@ -43,9 +43,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resData = await axios.get(
-          "https://harmonious-gift-7f42955e82.strapiapp.com/api/shops?populate=*"
-        );
+        const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setTopSellingData(
           resData.data.data.filter((item) => {
             if (item.id % 2 == 1 && item.id > 19) {
@@ -65,9 +63,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resData = await axios.get(
-          "https://harmonious-gift-7f42955e82.strapiapp.com/api/reviews?populate=*"
-        );
+        const resData = await axios.get(`${API_KEY}/api/reviews?populate=*`);
         setTestimonalsData(
           resData.data.data.filter((item) => {
             if (item.id < 7) {
