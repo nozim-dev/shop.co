@@ -12,7 +12,7 @@ const CartItems = ({ title, data }) => {
             className="CartItems_row_col"
           >
             <div className="CartItems_row_col_img">
-              <img src={cart.imgUrl.url} alt="" />
+              <img src={`http://localhost:1337/${cart.imgUrl.url}`} alt="" />
             </div>
             <h3>{cart.productName}</h3>
             <div className="CartItems_row_col_rates">

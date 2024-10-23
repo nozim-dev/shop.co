@@ -6,7 +6,7 @@ const ShopCart = ({ data }) => {
   return (
     <Link to={`${data.documentId}`} className="CartItems_row_col">
       <div className="CartItems_row_col_img">
-        <img alt="product" src={data.imgUrl.url} />
+        <img alt="product" src={`http://localhost:1337/${data.imgUrl.url}`} />
       </div>
       <h3>{data.productName}</h3>
       <div className="CartItems_row_col_rates">

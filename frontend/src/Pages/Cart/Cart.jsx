@@ -1,32 +1,44 @@
-import { Alert } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
+import { RotatingLines } from "react-loader-spinner";
 
 const Cart = () => {
-  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_KEY = process.env.REACT_APP_BACKEND;
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [count, setCount] = useState(1);
-  const [store, setStore] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [subTotal, setSubTotal] = useState(0);
+  const [discountCost, setDiscountCost] = useState(0);
+  const [discount, setDiscount] = useState(0);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const resData = await axios.get(
-          "https://harmonious-gift-7f42955e82.strapiapp.com/api/carts"
-        );
-        setCartData(resData.data.data);
-      } catch {
-        setError(error);
-        setLoading(false);
-      }
+  function Subtotal() {
+    let sum = 0;
+
+    cartData.map((cart) => {
+      sum += cart.costProduct * cart.quantity;
+    });
+    setSubTotal(sum);
+  }
+
+  async function fetchData() {
+    try {
+      const resData = await axios.get(`${API_KEY}/api/carts`);
+      setCartData(resData.data.data);
+    } catch {
+      setError(error);
       setLoading(false);
     }
+    setLoading(false);
+  }
+
+  useEffect(() => {
     fetchData();
-  }, []);
+    Subtotal();
+  }, [cartData]);
 
   if (loading) {
     return (
@@ -49,17 +61,19 @@ const Cart = () => {
   }
 
   const DeleteCart = async (id) => {
+    console.log(id);
+
     try {
       const response = await fetch(`${API_KEY}/api/carts/${id}`, {
         method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
       });
+      console.log(response);
+
+      fetchData();
+
       setAlert(true);
       setTimeout(() => {
         setAlert(false);
-        console.log(alert);
       }, 3000);
     } catch (error) {
       console.log("Fetch error:", error);
@@ -71,7 +85,7 @@ const Cart = () => {
       {alert ? (
         <div className="alert">
           <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-            Mahsulot savatchangizga muvaffaqiyatli tarzda qo'shildi!
+            Mahsulot savatchangizdan o'chirildi!
           </Alert>
         </div>
       ) : (
@@ -83,7 +97,7 @@ const Cart = () => {
           {cartData.map((item, id) => (
             <div key={id} className="Cart_main_row_col">
               <div className="Cart_main_row_col_img">
-                <img src={item.productUrl} alt="" />
+                <img src={`http://localhost:1337/${item.productUrl}`} alt="" />
               </div>
               <div className="Cart_main_row_col_text">
                 <div className="Cart_main_row_col_text_title">
@@ -96,7 +110,7 @@ const Cart = () => {
                       Color: <span>White</span>
                     </h3>
                   </div>
-                  <span onClick={() => DeleteCart(item.id)}>
+                  <span onClick={() => DeleteCart(item.documentId)}>
                     <svg
                       width="18"
                       height="20"
@@ -155,11 +169,11 @@ const Cart = () => {
           <h1>Order Summary</h1>
           <div className="Cart_main_summary_item">
             <p>Subtotal</p>
-            <b>$565</b>
+            <b>${subTotal}</b>
           </div>
           <div className="Cart_main_summary_item">
-            <p>Discount (-20%)</p>
-            <b>-$113</b>
+            <p>Discount ({discount}%)</p>
+            <b>-${discountCost}</b>
           </div>
           <div className="Cart_main_summary_item">
             <p>Delivery Fee</p>

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 
 const Home = () => {
-  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_KEY = process.env.REACT_APP_BACKEND;
 
   const [NewArrivalsData, setNewArrivalsData] = useState([]);
   const [TopSellingData, setTopSellingData] = useState([]);
@@ -26,7 +26,9 @@ const Home = () => {
         const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setNewArrivalsData(
           resData.data.data.filter((item) => {
-            if (item.id % 2 == 1 && item.id < 19) {
+            console.log(item);
+
+            if (item.id % 2 == 0 && item.id < 12) {
               return item;
             }
           })
@@ -46,7 +48,7 @@ const Home = () => {
         const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setTopSellingData(
           resData.data.data.filter((item) => {
-            if (item.id % 2 == 1 && item.id > 19) {
+            if (item.id % 2 == 0 && item.id > 12) {
               return item;
             }
           })
@@ -97,7 +99,7 @@ const Home = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return console.log(<div>Error: {error.message}</div>);
   }
 
   return (

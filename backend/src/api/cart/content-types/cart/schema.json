@@ -28,6 +28,9 @@
     "productUrl": {
       "type": "string",
       "required": true
+    },
+    "oldPrice": {
+      "type": "integer"
     }
   }
 }

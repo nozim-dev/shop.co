@@ -8,7 +8,7 @@ import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
 
 const ProductDetail = () => {
-  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_KEY = process.env.REACT_APP_BACKEND;
 
   const params = useParams();
   const [loading, setLoading] = useState(true);
@@ -37,12 +37,10 @@ const ProductDetail = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resData = await axios.get(
-          `${API_KEY}/api/shops?populate=*`
-        );
+        const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setSameCartData(
           resData.data.data.filter((item) => {
-            if (item.id % 2 == 1 && item.id < 19) {
+            if (item.id % 2 == 0 && item.id < 12) {
               return item;
             }
           })
@@ -59,9 +57,7 @@ const ProductDetail = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resData = await axios.get(
-          `${API_KEY}/api/reviews?populate=*`
-        );
+        const resData = await axios.get(`${API_KEY}/api/reviews?populate=*`);
         setReviewData(resData.data.data);
         setLoading(false);
         setError(false);
@@ -121,23 +117,21 @@ const ProductDetail = () => {
       // Log cartData to check if all values are correct
       // console.log(cartData);
 
-      const response = await fetch(
-        `${API_KEY}/api/carts`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
+      const response = await fetch(`${API_KEY}/api/carts`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          data: {
+            productName: cartData.productName,
+            productUrl: cartData?.imgUrl?.url,
+            costProduct: cartData.cost,
+            quantity: count,
+            discount: count.discount,
           },
-          body: JSON.stringify({
-            data: {
-              productName: cartData.productName,
-              productUrl: cartData?.imgUrl?.url,
-              costProduct: cartData.cost,
-              quantity: count,
-            },
-          }),
-        }
-      );
+        }),
+      });
 
       // Check if response is ok and parse the response body
       // if (!response.ok) {
@@ -173,7 +167,9 @@ const ProductDetail = () => {
           <div className="ProductDetail_cartDetail">
             <div className="ProductDetail_cartDetail_image">
               <img
-                src={cartData?.imgUrl?.url || ErrorImage}
+                src={
+                  `http://localhost:1337/${cartData?.imgUrl?.url}` || ErrorImage
+                }
                 alt="Product Image"
               />
             </div>

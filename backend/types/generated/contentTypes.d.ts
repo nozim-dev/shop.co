@@ -508,6 +508,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
         number
       >;
     productUrl: Schema.Attribute.String & Schema.Attribute.Required;
+    oldPrice: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
