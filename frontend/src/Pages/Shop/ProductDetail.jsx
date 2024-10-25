@@ -8,6 +8,12 @@ import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
 
 const ProductDetail = () => {
+  function ToTop() {
+    window.scroll({
+      top: 0,
+    });
+  }
+  ToTop();
   const API_KEY = process.env.REACT_APP_BACKEND;
 
   const params = useParams();
@@ -40,7 +46,7 @@ const ProductDetail = () => {
         const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setSameCartData(
           resData.data.data.filter((item) => {
-            if (item.id % 2 == 0 && item.id < 20) {
+            if (item.id % 2 == 0 && item.id < 12) {
               return item;
             }
           })
@@ -141,9 +147,7 @@ const ProductDetail = () => {
           <div className="ProductDetail_cartDetail">
             <div className="ProductDetail_cartDetail_image">
               <img
-                src={
-                  `http://localhost:1337/${cartData?.imgUrl?.url}` || ErrorImage
-                }
+                src={`${cartData?.imgUrl?.url}` || ErrorImage}
                 alt="Product Image"
               />
             </div>

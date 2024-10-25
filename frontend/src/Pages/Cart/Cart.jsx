@@ -157,9 +157,7 @@ const Cart = () => {
               <div className="Cart_main_row_col_img">
                 <img
                   src={
-                    item?.productUrl
-                      ? `${API_KEY}/${item?.productUrl}`
-                      : { DefaultImage }
+                    item?.productUrl ? `${item?.productUrl}` : { DefaultImage }
                   }
                   alt=""
                 />

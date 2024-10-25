@@ -4,6 +4,12 @@ import ShopCart from "./ShopCart";
 import { RotatingLines } from "react-loader-spinner";
 
 const Shop = () => {
+  function ToTop() {
+    window.scroll({
+      top: 0,
+    });
+  }
+  ToTop();
   const API_KEY = process.env.REACT_APP_BACKEND;
 
   const [data, setData] = useState(null);

@@ -12,6 +12,12 @@ import { Link } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 
 const Home = () => {
+  function ToTop() {
+    window.scroll({
+      top: 0,
+    });
+  }
+  ToTop();
   const API_KEY = process.env.REACT_APP_BACKEND;
 
   const [NewArrivalsData, setNewArrivalsData] = useState([]);
@@ -26,9 +32,7 @@ const Home = () => {
         const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setNewArrivalsData(
           resData.data.data.filter((item) => {
-            console.log(item);
-
-            if (item.id % 2 == 0 && item.id < 20) {
+            if (item.id % 2 == 0 && item.id < 12) {
               return item;
             }
           })
@@ -48,7 +52,7 @@ const Home = () => {
         const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setTopSellingData(
           resData.data.data.filter((item) => {
-            if (item.id % 2 == 0 && item.id > 12) {
+            if (item.id % 2 == 0 && item.id > 10) {
               return item;
             }
           })

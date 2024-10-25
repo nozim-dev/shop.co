@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ErrorImage from "../../Shop/images/error-image-photo-icon.webp";
+
 const CartItems = ({ title, data }) => {
+
   function ToTop() {
     window.scroll({
       top: 0,
@@ -18,7 +21,7 @@ const CartItems = ({ title, data }) => {
             onClick={ToTop}
           >
             <div className="CartItems_row_col_img">
-              <img src={`http://localhost:1337/${cart.imgUrl.url}`} alt="" />
+              <img src={`${cart?.imgUrl?.url}` || ErrorImage} alt="" />
             </div>
             <h3>{cart.productName}</h3>
             <div className="CartItems_row_col_rates">
