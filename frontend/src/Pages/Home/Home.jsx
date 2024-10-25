@@ -28,7 +28,7 @@ const Home = () => {
           resData.data.data.filter((item) => {
             console.log(item);
 
-            if (item.id % 2 == 0 && item.id < 12) {
+            if (item.id % 2 == 0 && item.id < 20) {
               return item;
             }
           })

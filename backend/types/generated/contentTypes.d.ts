@@ -509,6 +509,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
       >;
     productUrl: Schema.Attribute.String & Schema.Attribute.Required;
     oldPrice: Schema.Attribute.Integer;
+    discount: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -568,7 +569,7 @@ export interface ApiShopShop extends Struct.CollectionTypeSchema {
     cost: Schema.Attribute.Integer & Schema.Attribute.Required;
     rateNumber: Schema.Attribute.Decimal & Schema.Attribute.Required;
     oldPrice: Schema.Attribute.Integer;
-    discount: Schema.Attribute.Integer;
+    discount: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

@@ -40,7 +40,7 @@ const ProductDetail = () => {
         const resData = await axios.get(`${API_KEY}/api/shops?populate=*`);
         setSameCartData(
           resData.data.data.filter((item) => {
-            if (item.id % 2 == 0 && item.id < 12) {
+            if (item.id % 2 == 0 && item.id < 20) {
               return item;
             }
           })
@@ -88,36 +88,9 @@ const ProductDetail = () => {
     return <div>Error: Unable to load data</div>;
   }
 
-  // async function AddCart() {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://harmonious-gift-7f42955e82.strapiapp.com/api/carts",
-  //       {
-  //         data: {
-  //           // Wrap the payload inside "data"
-
-  //           productName: cartData.productName,
-  //           productUrl: cartData?.imgUrl?.url,
-  //           costProduct: cartData.cost,
-  //           quantity: count,
-  //         },
-  //       }
-  //     );
-  //     console.log(response.data); // Log the response data
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.log("Error response data:", error.response.data); // Logs error details
-  //     } else {
-  //       console.log("Error:", error.message);
-  //     }
-  //   }
-  // }
   async function AddCart() {
     try {
-      // Log cartData to check if all values are correct
-      // console.log(cartData);
-
-      const response = await fetch(`${API_KEY}/api/carts`, {
+      await fetch(`${API_KEY}/api/carts`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -128,7 +101,8 @@ const ProductDetail = () => {
             productUrl: cartData?.imgUrl?.url,
             costProduct: cartData.cost,
             quantity: count,
-            discount: count.discount,
+            discount: cartData?.discount,
+            oldPrice: cartData?.oldPrice,
           },
         }),
       });
@@ -142,9 +116,9 @@ const ProductDetail = () => {
       //   console.log(responseData); // Log successful response
       // }
       setAlert(true);
+      setCount(1);
       setTimeout(() => {
         setAlert(false);
-        console.log(alert);
       }, 3000);
     } catch (error) {
       console.log("Fetch error:", error);
@@ -254,8 +228,8 @@ const ProductDetail = () => {
               </div>
               <div className="ProductDetail_cartDetail_title_prices">
                 <h2>${cartData.cost}</h2>
-                {cartData?.oldPrice ? <h4>{cartData.oldPrice}</h4> : ""}
-                {cartData?.discount ? <h5>{cartData.discount}</h5> : ""}
+                {cartData?.oldPrice ? <h4>${cartData.oldPrice}</h4> : ""}
+                {cartData?.discount ? <h5>-{cartData.discount}%</h5> : ""}
               </div>
               <p>
                 {cartData?.description ||

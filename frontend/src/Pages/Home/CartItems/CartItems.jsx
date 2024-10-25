@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const CartItems = ({ title, data }) => {
+  function ToTop() {
+    window.scroll({
+      top: 0,
+    });
+  }
   return (
     <div className="CartItems">
       <h1>{title}</h1>
@@ -10,6 +15,7 @@ const CartItems = ({ title, data }) => {
             to={`/shop/${cart.documentId}`}
             key={cart.id}
             className="CartItems_row_col"
+            onClick={ToTop}
           >
             <div className="CartItems_row_col_img">
               <img src={`http://localhost:1337/${cart.imgUrl.url}`} alt="" />
@@ -96,7 +102,7 @@ const CartItems = ({ title, data }) => {
           </Link>
         ))}
       </div>
-      <Link to={"/Shop"} className="CartItems_btn">
+      <Link to={"/Shop"} className="CartItems_btn" onClick={ToTop}>
         View All
       </Link>
     </div>

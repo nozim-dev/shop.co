@@ -50,5 +50,3 @@ createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </StrictMode>
 );
-
-// SetCountlarni taxlash kerak boshqa mahsulotga o'tsa countlar oldingi mahsulotda nechta tanlagan bo'lsa o'shancha ushlab turibdi.

@@ -86,7 +86,11 @@ const ShopCart = ({ data }) => {
           {data.rateNumber}/<span>5</span>
         </div>
       </div>
-      <h2>${data.cost}</h2>
+      <div className="ProductDetail_cartDetail_title_prices">
+        <h2>${data.cost}</h2>
+        {data?.oldPrice ? <h4>${data.oldPrice}</h4> : ""}
+        {data?.discount ? <h5>-{data.discount}%</h5> : ""}
+      </div>
     </Link>
   );
 };

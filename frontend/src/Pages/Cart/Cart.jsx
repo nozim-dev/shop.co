@@ -3,24 +3,76 @@ import React, { useEffect, useState } from "react";
 import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
 import { RotatingLines } from "react-loader-spinner";
-
+import DefaultImage from "../Shop/images/error-image-photo-icon.webp";
 const Cart = () => {
   const API_KEY = process.env.REACT_APP_BACKEND;
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [count, setCount] = useState(1);
   const [alert, setAlert] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
   const [discountCost, setDiscountCost] = useState(0);
   const [discount, setDiscount] = useState(0);
+  const [OldPriceCost, setOldPriceCost] = useState(0);
+  const [resultCost, setResultCost] = useState(0);
 
-  function Subtotal() {
+  const updateQuantity = (id, increment) => {
+    setCartData((prevCartData) =>
+      prevCartData.map((item) => {
+        if (item.documentId === id) {
+          const updatedQuantityCount = item.quantity + (increment ? 1 : -1);
+          return updatedQuantityCount <= 0
+            ? item
+            : { ...item, quantity: updatedQuantityCount };
+        }
+        return item;
+      })
+    );
+
+    const item = cartData.find((cartItem) => cartItem.documentId === id);
+    if (item) {
+      const updatedQuantityCount = item.quantity + (increment ? 1 : -1);
+      fetch(`${API_KEY}/api/carts/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          data: { quantity: updatedQuantityCount },
+        }),
+      });
+    }
+  };
+
+  function SubtotalFunc() {
     let sum = 0;
+    let discCost = 0;
+    let disc = [];
+    let resultDisc = 0;
+    let oldPriceCost = 0;
 
     cartData.map((cart) => {
       sum += cart.costProduct * cart.quantity;
+      discCost += cart.oldPrice
+        ? cart.oldPrice * cart.quantity - cart.costProduct * cart.quantity
+        : 0;
+      disc.push(cart.discount);
+      oldPriceCost += cart.oldPrice
+        ? cart.oldPrice * cart.quantity
+        : cart.costProduct * cart.quantity;
+
+      setDiscountCost(discCost);
+      setOldPriceCost(oldPriceCost);
     });
+    resultDisc =
+      disc.length >= 2 ? disc.reduce((a, b) => (a + b) / 2) : disc[0];
+
+    //  foizlardan foiz chiqarilgan o'rtacha // setDiscount(resultDisc);
+
+    setDiscount(Math.round(discountCost / (OldPriceCost / 100)));
+
+    setResultCost(subTotal + 15);
+
     setSubTotal(sum);
   }
 
@@ -35,10 +87,36 @@ const Cart = () => {
     setLoading(false);
   }
 
+  const DeleteCart = async (id) => {
+    try {
+      await fetch(`${API_KEY}/api/carts/${id}`, {
+        method: "DELETE",
+      });
+      fetchData();
+
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
+    } catch (error) {
+      console.log("Fetch error:", error);
+    }
+  };
   useEffect(() => {
     fetchData();
-    Subtotal();
-  }, [cartData]);
+  }, []);
+
+  useEffect(() => {
+    if (cartData.length) {
+      SubtotalFunc();
+    } else {
+      setSubTotal(0);
+      setDiscountCost(0);
+      setDiscount(0);
+      setOldPriceCost(0);
+      setResultCost(0);
+    }
+  }, [cartData, subTotal, discountCost, discount, OldPriceCost, resultCost]);
 
   if (loading) {
     return (
@@ -60,26 +138,6 @@ const Cart = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  const DeleteCart = async (id) => {
-    console.log(id);
-
-    try {
-      const response = await fetch(`${API_KEY}/api/carts/${id}`, {
-        method: "DELETE",
-      });
-      console.log(response);
-
-      fetchData();
-
-      setAlert(true);
-      setTimeout(() => {
-        setAlert(false);
-      }, 3000);
-    } catch (error) {
-      console.log("Fetch error:", error);
-    }
-  };
-
   return (
     <div className="Cart">
       {alert ? (
@@ -97,12 +155,19 @@ const Cart = () => {
           {cartData.map((item, id) => (
             <div key={id} className="Cart_main_row_col">
               <div className="Cart_main_row_col_img">
-                <img src={`http://localhost:1337/${item.productUrl}`} alt="" />
+                <img
+                  src={
+                    item?.productUrl
+                      ? `${API_KEY}/${item?.productUrl}`
+                      : { DefaultImage }
+                  }
+                  alt=""
+                />
               </div>
               <div className="Cart_main_row_col_text">
                 <div className="Cart_main_row_col_text_title">
                   <div className="Cart_main_row_col_text_title_item">
-                    <h1>{item.productName}</h1>
+                    <h1>{item?.productName}</h1>
                     <h3>
                       Size: <span>Large</span>
                     </h3>
@@ -126,10 +191,10 @@ const Cart = () => {
                   </span>
                 </div>
                 <div className="Cart_main_row_col_text_price">
-                  <h5>${item.costProduct}</h5>
+                  <h5>${item?.costProduct}</h5>
                   <div className="Cart_main_row_col_text_price_counter">
                     <button
-                      onClick={() => setCount(count <= 1 ? 1 : count - 1)}
+                      onClick={() => updateQuantity(item.documentId, false)}
                     >
                       <svg
                         width="16"
@@ -144,8 +209,10 @@ const Cart = () => {
                         />
                       </svg>
                     </button>
-                    <p>{item.quantity}</p>
-                    <button onClick={() => setCount(count + 1)}>
+                    <p>{item?.quantity}</p>
+                    <button
+                      onClick={() => updateQuantity(item.documentId, true)}
+                    >
                       <svg
                         width="16"
                         height="16"
@@ -168,12 +235,16 @@ const Cart = () => {
         <div className="Cart_main_summary">
           <h1>Order Summary</h1>
           <div className="Cart_main_summary_item">
-            <p>Subtotal</p>
-            <b>${subTotal}</b>
+            <p>Old Price</p>
+            <b>${OldPriceCost}</b>
           </div>
           <div className="Cart_main_summary_item">
             <p>Discount ({discount}%)</p>
             <b>-${discountCost}</b>
+          </div>
+          <div className="Cart_main_summary_item">
+            <p>Subtotal</p>
+            <b>${subTotal}</b>
           </div>
           <div className="Cart_main_summary_item">
             <p>Delivery Fee</p>
@@ -181,7 +252,7 @@ const Cart = () => {
           </div>
           <div className="Cart_main_summary_item total">
             <p>Total</p>
-            <b>$467</b>
+            <b>${resultCost}</b>
           </div>
           <div className="Cart_main_summary_item">
             <form action="">

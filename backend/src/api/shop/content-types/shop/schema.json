@@ -40,7 +40,7 @@
       "required": false
     },
     "discount": {
-      "type": "integer",
+      "type": "decimal",
       "required": false
     }
   }
